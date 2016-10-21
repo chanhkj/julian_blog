@@ -3,8 +3,28 @@
   <head>
     <meta charset="utf-8">
     <title>JULIAN BLOG</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" >
+
   </head>
   <body>
 
+<div class="container">
+
+  <h1>Welcome to Julian's Blog</h1>
+  <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Options
+  <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#">Link 1</a></li>
+      <li><a href="#">Link 2</a></li>
+      <li><a href="#">Link 3</a></li>
+    </ul>
+  </div>
+  <%- body %>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="/js/script.js" charset="utf-8"></script>
+</div>
   </body>
 </html>

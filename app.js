@@ -1,29 +1,62 @@
 var express = require('express')
 var app = express()
+var layout = require('express-ejs-layouts')
+var bodyParser = require('body-parser')
+var morgan = require('morgan')
+
+var flash = require('connect-flash')
+var session = require('express-session')
+
+var passport = require('passport')
+var MongoStore = require('connect-mongo')(session)
+
+var dotenv = require('dotenv')
+
 // Mongoose stuff
 var mongoose = require('mongoose')
-mongoose.connect('mongodb://localhose/julian_blog')
+// mongoose.connect('mongodb://localhost/julian_blog')
 mongoose.Promise = global.Promise
-var bodyParser = require('body-parser')
+
+/**
+ * Load environment variables from .env file, where API keys and passwords are configured.
+ */
+dotenv.load({ path: '.env.' + process.env.NODE_ENV })
+
+mongoose.connect(process.env.MONGO_URI)
+
+app.use(morgan('dev'))
+app.set('view engine', 'ejs')
+app.use(layout)
+app.use(session({
+  secret: process.env.EXPRESS_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  store: new MongoStore({
+    url: process.env.MONGO_URI,
+    autoReconnect: true
+  })
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use(flash())
+
+// serve static files
+app.use(express.static(__dirname + '/public'))
+
+var userRoutes = require('./routes/users')
+// var usersAPIRoutes = require('./routes/users_api')
 
 app.use(bodyParser.urlencoded({
   extended: true
 }))
-// write my models here
-var userSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  password: String
-})
 
-var postSchema = new mongoose.Schema({
+require('./config/passport')(passport)
 
-})
-
-var commentSchema = new mongoose.Schema({
-
-})
+app.use('/users', userRoutes)
+// app.use('/api/users', usersAPIRoutes)
 
 
-app.listen(4000)
+app.listen(process.env.PORT || 4000)
 console.log('server started ')
