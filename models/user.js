@@ -1,37 +1,61 @@
 var mongoose = require('mongoose')
-
+var bcrypt = require('bcrypt')
 
 // write my models here
 var userSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  password: String
+  local:{
+    name: String,
+    email: String,
+    password: String
+  }
 })
 
 userSchema.pre('save', function (next) {
-  var user = this
-  bcrypt.genSalt(function (err, salt) {
-    if (err) return next(err)
+ console.log('before save hash the password')
+ console.log(this)
 
-    bcrypt.hash(user.local.password, salt, function (err, hash) {
-      if (err) return next(err)
+ var user = this
 
-      user.local.password = hash
-      next()
-    })
-  })
+ bcrypt.genSalt(5, function (err, salt) {
+   if (err) return next(err)
+
+   bcrypt.hash(user.local.password, salt, function (err, hash) {
+     if (err) return next(err)
+
+     user.local.password = hash
+     console.log('after hash')
+     console.log(user)
+     next()
+   })
+ })
 })
 
-userSchema.methods.auth = function (givenPassword, callback) {
-  console.log('given password is ' + givenPassword)
-  console.log('saved password is ' + this.local.password)
-  var hashedPassword = this.local.password
+userSchema.post('save', function () {})
+// console.log('after the save, save successful')
 
-  bcrypt.compare(givenPassword, hashedPassword, function (err, isMatch) {
-    callback(err, isMatch)
-  })
+// this is call instance method
+userSchema.methods.auth = function (password, callback) {
+ console.log('given password is' + password)
+ console.log('local password is' + this.local.password)
+
+ var hashedPassword = this.local.password
+
+ bcrypt.compare(password, hashedPassword, function (err, isMatch) {
+   callback(err, isMatch)
+ })
 }
 
 var User = mongoose.model('User', userSchema)
+
+// to authenticate
+userSchema.methods.sayName = function () {
+ console.log('hey i can call say name from an instance') // refer to user
+ console.log('my email is' + this.local.email)
+ console.log('my password is' + this.local.password)
+}
+
+userSchema.methods.authenticate = function (password, callback) {
+ bcrypt.compare(password, this.local.password, function (err, isMatch) {})
+}
 
 module.exports = User

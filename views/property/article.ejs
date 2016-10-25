@@ -1,0 +1,66 @@
+<h1><%= foundProperty.name %></h1>
+<h2><%= foundProperty.year %></h2>
+<p>
+  <%= foundProperty.message %>
+</p>
+
+<form action="/property/:propertyid" method="post" id="commentform">
+
+<div id="comment-name" class="form-row">
+<input type = "text" placeholder = "Name (required)" name = "commenterName"  id = "name" >
+</div>
+<div id="comment-message" class="form-row">
+<textarea name = "remarks" placeholder = "Message" id = "comment" ></textarea>
+</div>
+<input type="submit" name="dsubmit" id="commentSubmit" value="Submit Comment">
+
+
+</form>
+
+
+
+
+
+
+
+
+<%# <a class="btn btn-default btn-primary" href="users/post" role="button">Submit</a>%>
+
+<%#
+<h2>New article</h2>
+
+    <form class="article-form" action="/blog/article" method="post">
+     <div class="row">
+      <label class="control-label col-sm-2" for="title">
+       Title
+      </label>
+      <div class="col-sm-10">
+       <input class="form-control" id="article-title" name="article[local][property]" type="property"/>
+      </div>
+     </div>
+     <div class="row">
+      <label class="control-label col-sm-2" for="date">
+       Year of
+      </label>
+      <div class="col-sm-10">
+       <input class="form-control" id="article-date" name="article[local][year]" type="date"/>
+      </div>
+     </div>
+     <div class="row">
+      <label class="control-label col-sm-2" for="message">
+       Message
+      </label>
+      <div class="col-sm-10">
+       <textarea class="form-control" cols="40" id="article-message" name="article[local][message]" rows="10"></textarea>
+      </div>
+     </div>
+     <div class="row>
+      <div class="col-sm-10 col-sm-offset-2">
+       <button class="btn btn-custom btn-lg btn-block outline" name="submit" type="submit" value='Save My Post'>
+        Submit
+       </button>
+      </div>
+     </div>
+
+
+    </form>%>

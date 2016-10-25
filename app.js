@@ -48,15 +48,17 @@ app.use(express.static(__dirname + '/public'))
 var userRoutes = require('./routes/users')
 // var usersAPIRoutes = require('./routes/users_api')
 
+var propertyRoutes = require('./routes/properties')
+
 app.use(bodyParser.urlencoded({
   extended: true
 }))
 
 require('./config/passport')(passport)
 
-app.use('/users', userRoutes)
+app.use('/', userRoutes)
 // app.use('/api/users', usersAPIRoutes)
-
+app.use('/property', propertyRoutes)
 
 app.listen(process.env.PORT || 4000)
 console.log('server started ')
