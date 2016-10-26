@@ -6,7 +6,7 @@ var Comment = require('../models/comment')
 var Property = require('../models/property')
 
 router.get('/', function (req, res) {
-  Property.find({}, function (err, properties, comments) {
+  Property.find({}, function (err, properties) {
     res.render('users/profile', {
       message: req.flash('loginMessage'),
       propertyArr: properties,
@@ -18,6 +18,7 @@ router.get('/', function (req, res) {
 //   res.render('blog/article')
 // })
 
+// get route for new comment
 router.get('/:id', function (req, res) {
   Property.findById(req.params.id, function (err, foundProperty) {
     if (err) console.log(err)
@@ -30,14 +31,7 @@ router.get('/:id', function (req, res) {
   })
 })
 
-// router.get('/', function(req, res) {
-//   Comment.find({}, function(err, comments) {
-//     res.render('/:property_id', {
-//       message: req.flash('loginMessage')
-//     })
-//   })
-// })
-
+// post new comments
 router.post('/:id', function (req, res) {
   var newComment = new Comment({
     commenterName: req.body.commenterName,
@@ -51,8 +45,50 @@ router.post('/:id', function (req, res) {
   })
 })
 
-// router.get('/property', function(req, res) {
-//   Article.find({}, function(err, allArticles) {
+// edit comments route
+router.get('/:id/edit', function(req, res) {
+  Property.findById(req.params.id, function (err, foundProperty) {
+    if (err) console.log(err)
+    Comment.findById(req.params.id, function(err, foundComments){
+      if (err) console.log(err)
+
+      res.render('property/edit', {
+        foundProperty: foundProperty,
+        commentArr: foundComments
+
+      })
+
+    })
+
+
+
+  })
+
+
+})
+
+// post edit comments
+router.put('/:id/edit', function (req, res) {
+  var updatedComment = req.body.comment;
+    console.log("updated Comments" + comment)
+  Comment.findByIdAndUpdate(req.params.id, function(err, foundComments) {
+if(err) throw new Error (err)
+res.redirect('/property/'+req.params.id)
+    })
+  })
+
+  {
+
+  }
+
+
+  // foundComments.save(function (err, foundComments) {
+    // res.send(savedComment)
+    // res.redirect('/property/' + req.params.id)
+// })
+
+// router.get('/:id, function(req, res) {
+//   Comment.findById({}, function(err, allArticles) {
 //     console.log(allArticles)
 //     res.render('/profile', {
 //       allArticles: allArticles

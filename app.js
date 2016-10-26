@@ -3,6 +3,7 @@ var app = express()
 var layout = require('express-ejs-layouts')
 var bodyParser = require('body-parser')
 var morgan = require('morgan')
+var override = require('method-override')
 
 var flash = require('connect-flash')
 var session = require('express-session')
@@ -11,6 +12,7 @@ var passport = require('passport')
 var MongoStore = require('connect-mongo')(session)
 
 var dotenv = require('dotenv')
+
 
 // Mongoose stuff
 var mongoose = require('mongoose')

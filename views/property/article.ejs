@@ -11,7 +11,7 @@
 <div id="comment-message" class="form-row">
   <textarea name = "remarks" placeholder = "Message" id = "comment" ></textarea>
 </div>
-<input type="submit" name="dsubmit" id="commentSubmit" value="Submit Comment">
+<input type="submit" name="submit" id="commentSubmit" value="Submit Comment">
 
 
 </form>
@@ -23,6 +23,8 @@
             <h2> <%= comments.commenterName %> </h2>
             <p> <%= comments.remarks %> </p>
             <p> <%= comments.propertyid %> </p>
+            <a class="btn btn-default" href="/property/<%= foundProperty.id%>/edit" role="button">Edit</a>
+
           </li>
        </div>
          <% }) %>
