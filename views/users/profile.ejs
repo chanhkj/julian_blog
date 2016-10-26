@@ -8,16 +8,14 @@
 <a href="/logout">Logout</a>
 
 <ul id="all-property-boxes">
-          <% propertyArr.forEach(function(property) { %>
-            <div class="four columns">
-
-           <li>
-
-            <h2> <%= property.name %> </h2>
-            <p> <%= property.year %> </p>
-            <p> <%= property.message %> </p>
-           </li>
+    <% propertyArr.forEach(function(property) { %>
+      <div class="four columns">
+        <li>
+          <h2> <%= property.name %> </h2>
+          <p> <%= property.year %> </p>
+          <p> <%= property.message %> </p>
+        </li>
            <a href="/property/<%= property._id %>"> <button class="btn btn-default btn-primary" href="property/property._id" role="button">Comment</button></a>
-           </div>
-         <% }) %>
-     </ul>
+      </div>
+    <% }) %>
+</ul>

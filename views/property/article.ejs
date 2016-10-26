@@ -4,19 +4,29 @@
   <%= foundProperty.message %>
 </p>
 
-<form action="/property/:propertyid" method="post" id="commentform">
-
+<form action="/property/<%=foundProperty.id%>" method="post" id="commentform">
 <div id="comment-name" class="form-row">
-<input type = "text" placeholder = "Name (required)" name = "commenterName"  id = "name" >
+  <input type = "text" placeholder = "Name (required)" name = "commenterName"  id = "name" >
 </div>
 <div id="comment-message" class="form-row">
-<textarea name = "remarks" placeholder = "Message" id = "comment" ></textarea>
+  <textarea name = "remarks" placeholder = "Message" id = "comment" ></textarea>
 </div>
 <input type="submit" name="dsubmit" id="commentSubmit" value="Submit Comment">
 
 
 </form>
 
+<ul id="all-comment-boxes">
+      <% commentArr.forEach(function(comments) { %>
+        <div class="four columns">
+           <li>
+            <h2> <%= comments.commenterName %> </h2>
+            <p> <%= comments.remarks %> </p>
+            <p> <%= comments.propertyid %> </p>
+          </li>
+       </div>
+         <% }) %>
+     </ul>
 
 
 

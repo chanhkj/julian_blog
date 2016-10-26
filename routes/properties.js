@@ -5,10 +5,11 @@ var Comment = require('../models/comment')
 
 var Property = require('../models/property')
 
-router.get('/', function(req, res) {
-  Property.find({}, function(err, properties){
-    res.render('users/profile', { message: req.flash('loginMessage'),
-      propertyArr: properties
+router.get('/', function (req, res) {
+  Property.find({}, function (err, properties, comments) {
+    res.render('users/profile', {
+      message: req.flash('loginMessage'),
+      propertyArr: properties,
     })
   })
 })
@@ -17,44 +18,37 @@ router.get('/', function(req, res) {
 //   res.render('blog/article')
 // })
 
-router.get('/:id', function(req, res){
-
- Property.findById(req.params.id, function(err, foundProperty){
-
-if (err) console.log (err)
-
- res.render('property/article',{
-   foundProperty: foundProperty
- })
- })
-})
-
-router.get('/', function(req, res) {
-  Comment.find({}, function(err, comments){
-    res.render('/:property_id', {
-      message: req.flash('loginMessage'),
-      commentArr: comments
+router.get('/:id', function (req, res) {
+  Property.findById(req.params.id, function (err, foundProperty) {
+    if (err) console.log(err)
+    Comment.find({property_id : req.params.id}, function(err, foundComments){
+      res.render('property/article', {
+        foundProperty: foundProperty,
+        commentArr: foundComments
+      })
     })
   })
 })
 
-router.post('/:id', function (req,res){
+// router.get('/', function(req, res) {
+//   Comment.find({}, function(err, comments) {
+//     res.render('/:property_id', {
+//       message: req.flash('loginMessage')
+//     })
+//   })
+// })
 
-var newComment = new Comment ({
-  commenterName: req.body.commenterName,
-  remarks: req.body.remarks,
-  propertyid: req.params.propertyid
+router.post('/:id', function (req, res) {
+  var newComment = new Comment({
+    commenterName: req.body.commenterName,
+    remarks: req.body.remarks,
+    property_id: req.params.id
+  })
 
-})
-
-
-newComment.save(function (err, savedComment){
-
-res.send(savedComment)
-
-})
-
-
+  newComment.save(function (err, savedComment) {
+    // res.send(savedComment)
+    res.redirect('/property/' + req.params.id)
+  })
 })
 
 // router.get('/property', function(req, res) {
@@ -77,8 +71,5 @@ res.send(savedComment)
 //    }
 //  })
 // })
-
-
-
 
 module.exports = router
