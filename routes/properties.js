@@ -6,9 +6,7 @@ var Comment = require('../models/comment')
 var Property = require('../models/property')
 
 router.get('/', function (req, res) {
-  res.render('users/about', {
-    name: 'Glen'
-  })
+  res.render('users/about')
 })
 
 router.get('/', function (req, res) {
