@@ -3,13 +3,16 @@
 <p>
   <%= foundProperty.message %>
 </p>
+<p>
+  <%= foundProperty.id %>
+</p>
 
 <form action="/property/<%=foundProperty.id%>" method="post" id="commentform">
 <div id="comment-name" class="form-row">
-  <input type = "text" placeholder = "Name (required)" name = "commenterName"  id = "name" >
+  <input type = "text" placeholder = "Name (required)" name = "comment[commenterName]"  id = "name" >
 </div>
 <div id="comment-message" class="form-row">
-  <textarea name = "remarks" placeholder = "Message" id = "comment" ></textarea>
+  <textarea name = "comment[remarks]" placeholder = "Message" id = "comment" ></textarea>
 </div>
 <input type="submit" name="submit" id="commentSubmit" value="Submit Comment">
 
@@ -20,11 +23,16 @@
       <% commentArr.forEach(function(comments) { %>
         <div class="four columns">
            <li>
-            <h2> <%= comments.commenterName %> </h2>
-            <p> <%= comments.remarks %> </p>
-            <p> <%= comments.propertyid %> </p>
-            <a class="btn btn-default" href="/property/<%= foundProperty.id%>/edit" role="button">Edit</a>
+            <p> Comments Id is:   <%= comments.id %> </p>
+            <h2> From:  <%= comments.commenterName %> </h2>
+            <h4> Remarks: <%= comments.remarks %> </h4>
+            <p> Property Id is: <%= comments.property_id %> </p>
 
+            <a class="btn btn-default" href="/comment/<%= comments.id%>/edit" role="button">Edit</a>
+            <form method="POST" action="/comment/<%=foundProperty.id%>/comments/<%= comments.id%>?_method=DELETE">
+              <input type="hidden" name="_method" value="DELETE">
+              <button class="btn btn-default" type="submit">Delete</button>
+           </form>
           </li>
        </div>
          <% }) %>

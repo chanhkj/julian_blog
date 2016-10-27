@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
   Property.find({}, function (err, properties) {
     res.render('users/profile', {
       message: req.flash('loginMessage'),
-      propertyArr: properties,
+      propertyArr: properties
     })
   })
 })
@@ -22,7 +22,9 @@ router.get('/', function (req, res) {
 router.get('/:id', function (req, res) {
   Property.findById(req.params.id, function (err, foundProperty) {
     if (err) console.log(err)
-    Comment.find({property_id : req.params.id}, function(err, foundComments){
+    Comment.find({
+      property_id: req.params.id
+    }, function (err, foundComments) {
       res.render('property/article', {
         foundProperty: foundProperty,
         commentArr: foundComments
@@ -45,46 +47,9 @@ router.post('/:id', function (req, res) {
   })
 })
 
-// edit comments route
-router.get('/:id/edit', function(req, res) {
-  Property.findById(req.params.id, function (err, foundProperty) {
-    if (err) console.log(err)
-    Comment.findById(req.params.id, function(err, foundComments){
-      if (err) console.log(err)
-
-      res.render('property/edit', {
-        foundProperty: foundProperty,
-        commentArr: foundComments
-
-      })
-
-    })
-
-
-
-  })
-
-
-})
-
-// post edit comments
-router.put('/:id/edit', function (req, res) {
-  var updatedComment = req.body.comment;
-    console.log("updated Comments" + comment)
-  Comment.findByIdAndUpdate(req.params.id, function(err, foundComments) {
-if(err) throw new Error (err)
-res.redirect('/property/'+req.params.id)
-    })
-  })
-
-  {
-
-  }
-
-
-  // foundComments.save(function (err, foundComments) {
-    // res.send(savedComment)
-    // res.redirect('/property/' + req.params.id)
+// foundComments.save(function (err, foundComments) {
+// res.send(savedComment)
+// res.redirect('/property/' + req.params.id)
 // })
 
 // router.get('/:id, function(req, res) {

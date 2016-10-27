@@ -25,7 +25,7 @@ mongoose.Promise = global.Promise
 dotenv.load({ path: '.env.' + process.env.NODE_ENV })
 
 mongoose.connect(process.env.MONGO_URI)
-
+app.use(override('_method'))
 app.use(morgan('dev'))
 app.set('view engine', 'ejs')
 app.use(layout)
@@ -52,6 +52,8 @@ var userRoutes = require('./routes/users')
 
 var propertyRoutes = require('./routes/properties')
 
+var commentRoutes = require('./routes/comments')
+
 app.use(bodyParser.urlencoded({
   extended: true
 }))
@@ -61,6 +63,8 @@ require('./config/passport')(passport)
 app.use('/', userRoutes)
 // app.use('/api/users', usersAPIRoutes)
 app.use('/property', propertyRoutes)
+
+app.use('/comment', commentRoutes)
 
 app.listen(process.env.PORT || 4000)
 console.log('server started ')

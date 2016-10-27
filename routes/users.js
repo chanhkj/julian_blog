@@ -30,17 +30,17 @@ router.route('/signup')
     failureFlash: true
   }))
 
-router.route('/login')
-  .get(function (req, res) {
-    res.render('users/login', {
-      message: req.flash('loginMessage')
-    })
-  })
-  .post(passport.authenticate('local-login', {
-    successRedirect: '/profile',
-    failureRedirect: '/signup',
-    failureFlash: true
-  }))
+// router.route('/login')
+//   .get(authCheck, function (req, res) {
+//     res.render('users/login', {
+//       message: req.flash('loginMessage')
+//     })
+//   })
+//   .post(passport.authenticate('local-login', {
+//     successRedirect: '/profile',
+//     failureRedirect: '/signup',
+//     failureFlash: true
+//   }))
 
 // router.get('/error', function (req, res) {
   //   res.render('users/error')

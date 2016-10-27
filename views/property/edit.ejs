@@ -1,11 +1,12 @@
-<form action="/property/<%=foundProperty.id%>/edit?_method=put" method="POST" id="commentform">
+<form action="/comment/<%=foundComment.id%>/edit?_method=put" method="POST" id="commentform">
 <div id="comment-name" class="form-row">
-  <input type = "text" placeholder = "Name (required)" name = "commenterName"  id = "name" value = "<%=foundComments.commenterName %>">
+  <input type = "text" placeholder = "Name (required)" name = "comment[commenterName]"  id = "name" value = "<%=foundComment.commenterName %>">
 </div>
 <div id="comment-message" class="form-row">
-  <textarea name = "remarks" placeholder = "Message" id = "comment" value = "<%=foundComments.remarks %>"></textarea>
+  <textarea name = "comment[remarks]" placeholder = "Message" id = "comment" value = "<%=foundComment.remarks %>"></textarea>
 </div>
-<input type="submit" name="submit" id="com1mentSubmit" value="Edit Comment">
+ <input type="submit" name="submit" id="commentSubmit" value="Edit Comment">
 
+ 
 
 </form>
