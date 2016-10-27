@@ -6,6 +6,12 @@ var Comment = require('../models/comment')
 var Property = require('../models/property')
 
 router.get('/', function (req, res) {
+  res.render('users/about', {
+    name: 'Glen'
+  })
+})
+
+router.get('/', function (req, res) {
   Property.find({}, function (err, properties) {
     res.render('users/profile', {
       message: req.flash('loginMessage'),

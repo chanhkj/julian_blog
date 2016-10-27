@@ -23,17 +23,19 @@
       <% commentArr.forEach(function(comments) { %>
         <div class="four columns">
            <li>
+
             <p> Comments Id is:   <%= comments.id %> </p>
             <h2> From:  <%= comments.commenterName %> </h2>
             <h4> Remarks: <%= comments.remarks %> </h4>
             <p> Property Id is: <%= comments.property_id %> </p>
-
+            </li>
+          <div class="six columns">
             <a class="btn btn-default" href="/comment/<%= comments.id%>/edit" role="button">Edit</a>
             <form method="POST" action="/comment/<%=foundProperty.id%>/comments/<%= comments.id%>?_method=DELETE">
               <input type="hidden" name="_method" value="DELETE">
               <button class="btn btn-default" type="submit">Delete</button>
            </form>
-          </li>
+          </div>
        </div>
          <% }) %>
      </ul>
