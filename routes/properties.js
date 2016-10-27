@@ -35,9 +35,10 @@ router.get('/:id', function (req, res) {
 
 // post new comments
 router.post('/:id', function (req, res) {
+  console.log(req.body);
   var newComment = new Comment({
-    commenterName: req.body.commenterName,
-    remarks: req.body.remarks,
+    commenterName: req.body.comment.commenterName,
+    remarks: req.body.comment.remarks,
     property_id: req.params.id
   })
 
