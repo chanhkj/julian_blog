@@ -36,7 +36,7 @@ router.delete('/:property_id/comments/:id', function(req, res) {
       res.send('Error!')
       // console.log("delete" + deleteComment)
     } else {
-      console.log(deleteComment)
+      // console.log(deleteComment)
       res.redirect('/property/' + req.params.property_id)
     }
   })
