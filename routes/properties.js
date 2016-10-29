@@ -10,10 +10,12 @@ router.get('/', function (req, res) {
 })
 
 router.get('/', function (req, res) {
+  if (!req.isAuthenticated())
+  res.redirect('/login')
   Property.find({}, function (err, properties) {
     res.render('users/profile', {
-      message: req.flash('loginMessage'),
-      propertyArr: properties
+      propertyArr: properties,
+      message: req.flash('loginMessage')
     })
   })
 })
@@ -31,7 +33,9 @@ router.get('/:id', function (req, res) {
     }, function (err, foundComments) {
       res.render('property/article', {
         foundProperty: foundProperty,
-        commentArr: foundComments
+        commentArr: foundComments,
+        currentUser:req.user.id,
+        nowUser: req.user
       })
     })
   })
@@ -43,9 +47,9 @@ router.post('/:id', function (req, res) {
   var newComment = new Comment({
     commenterName: req.body.comment.commenterName,
     remarks: req.body.comment.remarks,
-    property_id: req.params.id
+    property_id: req.params.id,
+    user_id: req.user.id
   })
-
   newComment.save(function (err, savedComment) {
     // res.send(savedComment)
     res.redirect('/property/' + req.params.id)

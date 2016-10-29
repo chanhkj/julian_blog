@@ -6,6 +6,10 @@ var commentSchema = new mongoose.Schema({
   property_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Property'
+  },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 })
 

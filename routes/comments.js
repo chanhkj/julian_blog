@@ -7,6 +7,9 @@ var Property = require('../models/property')
 
 // edit comments route
 router.get('/:id/edit', function(req, res) {
+  if (!req.isAuthenticated())
+   res.redirect('/signup')
+
     Comment.findById(req.params.id, function(err, foundComment) {
       if (err) console.log(err)
       else {
@@ -41,11 +44,5 @@ router.delete('/:property_id/comments/:id', function(req, res) {
     }
   })
 })
-
-
-
-
-
-
 
 module.exports = router

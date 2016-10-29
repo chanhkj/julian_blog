@@ -4,12 +4,13 @@
   <%= foundProperty.message %>
 </p>
 <p>
-  <%= foundProperty.id %>
+  Property Id is: <%= foundProperty.id %>
 </p>
 
 <form action="/property/<%=foundProperty.id%>" method="post" id="commentform">
+  <h2> Comments:</h2>
 <div id="comment-name" class="form-row">
-  <input type = "text" placeholder = "Name (required)" name = "comment[commenterName]"  id = "name" >
+  <input type = "User" placeholder = "Name (required)" name = "comment[commenterName]"  id = "name" >
 </div>
 <div id="comment-message" class="form-row">
   <textarea name = "comment[remarks]" placeholder = "Message" id = "comment" ></textarea>
@@ -24,12 +25,17 @@
         <div class="four columns">
            <li>
 
-            <p> Comments Id is:   <%= comments.id %> </p>
+            <p> Comment Id is:   <%= comments.id %> </p>
             <h2> From:  <%= comments.commenterName %> </h2>
             <h4> Remarks: <%= comments.remarks %> </h4>
             <p> Property Id is: <%= comments.property_id %> </p>
+            <p> User Id is:   <%= comments.user_id %> </p>
             </li>
-          <div class="six columns">
+
+        <div class="six columns">
+            <%if(currentUser === String(comments.user_id.id))%>
+
+
             <a class="btn btn-default" href="/comment/<%= comments.id%>/edit" role="button">Edit</a>
             <form method="POST" action="/comment/<%=foundProperty.id%>/comments/<%= comments.id%>?_method=DELETE">
               <input type="hidden" name="_method" value="DELETE">

@@ -4,6 +4,8 @@ var passport = require('passport')
 
 var Property = require('../models/property')
 
+var Comment = require('../models/comment')
+
 var User = require('../models/user')
 
 function authCheck (req, res, next) {
@@ -30,38 +32,38 @@ router.route('/signup')
     failureFlash: true
   }))
 
-// router.route('/login')
-//   .get(authCheck, function (req, res) {
-//     res.render('users/login', {
-//       message: req.flash('loginMessage')
-//     })
-//   })
-//   .post(passport.authenticate('local-login', {
-//     successRedirect: '/profile',
-//     failureRedirect: '/signup',
-//     failureFlash: true
-//   }))
-
-// router.get('/error', function (req, res) {
-  //   res.render('users/error')
-  // })
-
-// router.get('/profile', function(req, res) {
-  //   res.render('users/profile', {
-  //     message: req.flash('signupMessage')
-  //   })
-  // })
-
 router.route('/login')
   .get(authCheck, function (req, res) {
     res.render('users/login', {
       message: req.flash('loginMessage')
     })
-  }).post(passport.authenticate('local-login', {
-  successRedirect: '/profile',
-  failureRedirect: '/login',
-  failureFlash: true
-}))
+  })
+  .post(passport.authenticate('local-login', {
+    successRedirect: '/profile',
+    failureRedirect: '/signup',
+    failureFlash: true
+  }))
+
+router.get('/error', function (req, res) {
+    res.render('users/error')
+  })
+
+// router.get('/profile', function(req, res) {
+//     res.render('users/profile', {
+//       message: req.flash('signupMessage')
+//     })
+//   })
+
+// router.route('/login')
+//   .get(authCheck, function (req, res) {
+//     res.render('users/login', {
+//       message: req.flash('loginMessage')
+//     })
+//   }).post(passport.authenticate('local-login', {
+//   successRedirect: '/profile',
+//   failureRedirect: '/login',
+//   failureFlash: true
+// }))
 
 function isLoggedIn (req, res, next) {
   if (req.isAuthenticated())
