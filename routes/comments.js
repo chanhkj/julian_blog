@@ -13,7 +13,7 @@ router.get('/:id/edit', function(req, res) {
     Comment.findById(req.params.id, function(err, foundComment) {
       if (err) console.log(err)
       else {
-        console.log(foundComment)
+        // console.log(foundComment)
         res.render('./property/edit', {
           // foundProperty: foundProperty,
           foundComment: foundComment
@@ -24,10 +24,10 @@ router.get('/:id/edit', function(req, res) {
   // post edit comments
 router.put('/:id/edit', function(req, res) {
   var updatedComment = req.body.comment;
-  console.log("what is this" + updatedComment)
+  // console.log("what is this" + updatedComment)
   Comment.findByIdAndUpdate(req.params.id, updatedComment, {new:true}, function(err, foundComments) {
     if (err) throw new Error(err)
-    console.log(foundComments)
+    // console.log(foundComments)
     res.redirect('/property/' + foundComments.property_id)
   })
 })
