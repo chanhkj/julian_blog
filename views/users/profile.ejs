@@ -1,11 +1,26 @@
-<h1>Hey Logged in User</h1>
+<%# <h1>Hey Logged in User</h1>%>
+
+<div class="blog-masthead">
+  <div class="container">
+    <nav class="blog-nav">
+      <%# <a class="blog-nav-item active" href="/signup">Sign up</a>%>
+      <%# <a class="blog-nav-item" href="/login">Log in</a>%>
+      <a class="blog-nav-item" href="/logout">Log out</a>
+      <%# <a class="blog-nav-item" href="http://localhost:4000/blog/article">Make New Post</a>
+      <a class="blog-nav-item" href="http://localhost:4000/comment">New Comments</a>%>
+      <a class="blog-nav-item" href="/property">About</a>
+    </nav>
+  </div>
+</div>
+<br>
+
  <% if(message.length > 0) { %>
   <h2>FLASH FOUND</h2>
   <div class="alert alert-danger">
     <%= message %>
   </div>
 <% } %>
-<a href="/logout">Logout</a>
+<%# <a href="/logout">Logout</a>%>
 
 <ul id="all-property-boxes">
     <% propertyArr.forEach(function(property) { %>

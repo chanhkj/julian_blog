@@ -25,6 +25,8 @@ mongoose.Promise = global.Promise
 dotenv.load({ path: '.env.' + process.env.NODE_ENV })
 
 mongoose.connect(process.env.MONGO_URI)
+
+// app setup & views setup
 app.use(override('_method'))
 app.use(morgan('dev'))
 app.set('view engine', 'ejs')
@@ -54,6 +56,8 @@ var propertyRoutes = require('./routes/properties')
 
 var commentRoutes = require('./routes/comments')
 
+// var aboutRoutes = require('./routes/about')
+
 app.use(bodyParser.urlencoded({
   extended: true
 }))
@@ -65,6 +69,8 @@ app.use('/', userRoutes)
 app.use('/property', propertyRoutes)
 
 app.use('/comment', commentRoutes)
+
+// app.use('/about', aboutRoutes)
 
 app.listen(process.env.PORT || 4000)
 console.log('server started ')

@@ -1,3 +1,4 @@
+// comment route (where i edit and delete post)
 var express = require('express')
 var router = express.Router()
 
@@ -7,13 +8,10 @@ var Property = require('../models/property')
 
 // edit comments route
 router.get('/:id/edit', function(req, res) {
-  if (!req.isAuthenticated())
-   res.redirect('/signup')
-
     Comment.findById(req.params.id, function(err, foundComment) {
       if (err) console.log(err)
       else {
-        // console.log(foundComment)
+        console.log(foundComment)
         res.render('./property/edit', {
           // foundProperty: foundProperty,
           foundComment: foundComment
@@ -24,17 +22,18 @@ router.get('/:id/edit', function(req, res) {
   // post edit comments
 router.put('/:id/edit', function(req, res) {
   var updatedComment = req.body.comment;
-  // console.log("what is this" + updatedComment)
+  console.log("what is this" + updatedComment)
   Comment.findByIdAndUpdate(req.params.id, updatedComment, {new:true}, function(err, foundComments) {
     if (err) throw new Error(err)
-    // console.log(foundComments)
+    console.log(foundComments)
     res.redirect('/property/' + foundComments.property_id)
   })
 })
 
 router.delete('/:property_id/comments/:id', function(req, res) {
   console.log("in delete");
-  Comment.findByIdAndRemove(req.params.id, function(err, deleteComment) {
+  console.log("user id is" + req.user._id)
+  Comment.findByIdAndRemove({user_id: req.user_id}, function(err, deleteComment) {
     if (err) {
       res.send('Error!')
       // console.log("delete" + deleteComment)
@@ -44,5 +43,11 @@ router.delete('/:property_id/comments/:id', function(req, res) {
     }
   })
 })
+
+
+
+
+
+
 
 module.exports = router

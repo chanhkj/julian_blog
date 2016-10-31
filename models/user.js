@@ -1,3 +1,4 @@
+// User model
 var mongoose = require('mongoose')
 var bcrypt = require('bcrypt')
 

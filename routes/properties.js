@@ -1,3 +1,4 @@
+// property route
 var express = require('express')
 var router = express.Router()
 
@@ -26,11 +27,14 @@ router.get('/', function (req, res) {
 
 // get route for new comment
 router.get('/:id', function (req, res) {
+  if (!req.isAuthenticated()){
+  res.redirect('/login')
+} else {
   Property.findById(req.params.id, function (err, foundProperty) {
     if (err) console.log(err)
     Comment.find({
       property_id: req.params.id
-    }, function (err, foundComments) {
+    }).populate('user_id').exec (function (err, foundComments) {
       res.render('property/article', {
         foundProperty: foundProperty,
         commentArr: foundComments,
@@ -39,6 +43,7 @@ router.get('/:id', function (req, res) {
       })
     })
   })
+}
 })
 
 // post new comments
