@@ -19,9 +19,7 @@
 <p>
   <%= foundProperty.message %>
 </p>
-<p>
-  Property Id is: <%= foundProperty.id %>
-</p>
+
 
 <form action="/property/<%=foundProperty.id%>" method="post" id="commentform">
   <h2> Comments:</h2>
@@ -43,11 +41,10 @@
         <div class="four columns">
            <li>
 
-            <p> Comment Id is:   <%= comments.id %> </p>
+
             <h2> From:  <%= comments.commenterName %> </h2>
             <h4> Remarks: <%= comments.remarks %> </h4>
-            <p> Property Id is: <%= comments.property_id %> </p>
-            <p> User Id is:   <%= comments.user_id %> </p>
+
             </li>
 
         <div class="six columns">
